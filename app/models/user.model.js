@@ -1,3 +1,4 @@
+const bcrypt = require('bcryptjs');
 module.exports = (sequelize, Sequelize) => {
   const user = sequelize.define("users", {
     name: {
@@ -17,6 +18,12 @@ module.exports = (sequelize, Sequelize) => {
     },
     password_hash: {
       type: Sequelize.STRING
+    }
+  });
+
+  user.addHook('beforeSave', async (user) => {
+    if (user.password) {
+      user.password_hash = await bcrypt.hash(user.password, 8);
     }
   });
 

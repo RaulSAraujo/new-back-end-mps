@@ -1,3 +1,4 @@
+const Yup = require('yup');
 const db = require("../models");
 const User = db.user;
 const Op = db.Sequelize.Op;
@@ -30,7 +31,7 @@ exports.create = async (req, res) => {
         age,
         telephone
     });
-};
+}
 
 // Retrieve all User from the database.
 exports.findAll = (req, res) => {
@@ -44,12 +45,12 @@ exports.findAll = (req, res) => {
         .catch(err => {
             res.status(500).send({
                 message:
-                    err.message || "Some error occurred while retrieving tutorials."
+                    err.message || "Ocorreu algum erro ao recuperar os usuarios."
             });
         });
 };
 
-// Find a single Tutorial with an id
+// Find a single User with an id
 exports.findOne = (req, res) => {
     const id = req.params.id;
 
@@ -59,18 +60,18 @@ exports.findOne = (req, res) => {
                 res.send(data);
             } else {
                 res.status(404).send({
-                    message: `Cannot find Tutorial with id=${id}.`
+                    message: `Não foi possível encontrar o usuário com id=${id}`
                 });
             }
         })
         .catch(err => {
             res.status(500).send({
-                message: "Error retrieving Tutorial with id=" + id
+                message: "Erro ao recuperar usuário com id=" + id
             });
         });
 };
 
-// Update a Tutorial by the id in the request
+// Update a User by the id in the request
 exports.update = (req, res) => {
     const id = req.params.id;
 
@@ -80,7 +81,7 @@ exports.update = (req, res) => {
         .then(num => {
             if (num == 1) {
                 res.send({
-                    message: "Tutorial was updated successfully."
+                    message: "O usuario foi atualizado com sucesso."
                 });
             } else {
                 res.send({
@@ -95,7 +96,7 @@ exports.update = (req, res) => {
         });
 };
 
-// Delete a Tutorial with the specified id in the request
+// Delete a User with the specified id in the request
 exports.delete = (req, res) => {
     const id = req.params.id;
 
@@ -105,17 +106,17 @@ exports.delete = (req, res) => {
         .then(num => {
             if (num == 1) {
                 res.send({
-                    message: "Tutorial was deleted successfully!"
+                    message: "O usuario foi excluído com sucesso!"
                 });
             } else {
                 res.send({
-                    message: `Cannot delete Tutorial with id=${id}. Maybe Tutorial was not found!`
+                    message: `Não é possível excluir o usuario com id=${id}. Talvez o Tutorial não tenha sido encontrado!`
                 });
             }
         })
         .catch(err => {
             res.status(500).send({
-                message: "Could not delete Tutorial with id=" + id
+                message: "Não foi possível excluir o usuario com id=" + id
             });
         });
 };
