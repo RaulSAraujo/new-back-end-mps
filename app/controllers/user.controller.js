@@ -35,8 +35,8 @@ exports.create = async (req, res) => {
 
 // Retrieve all User from the database.
 exports.findAll = (req, res) => {
-    const title = req.query.title;
-    var condition = title ? { title: { [Op.iLike]: `%${title}%` } } : null;
+    const email = req.query.email;
+    var condition = email ? { email: { [Op.iLike]: `%${email}%` } } : null;
 
     User.findAll({ where: condition })
         .then(data => {
@@ -120,18 +120,3 @@ exports.delete = (req, res) => {
             });
         });
 };
-
-
-// Find all published Tutorials
-// exports.findAllPublished = (req, res) => {
-//     Tutorial.findAll({ where: { published: true } })
-//         .then(data => {
-//             res.send(data);
-//         })
-//         .catch(err => {
-//             res.status(500).send({
-//                 message:
-//                     err.message || "Some error occurred while retrieving tutorials."
-//             });
-//         });
-// };
